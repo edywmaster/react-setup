@@ -1,0 +1,127 @@
+npm install --save @types/react @types/node
+npm run dev
+npm install --save-dev eslint eslint-plugin-react
+npx eslint --init
+ - stander
+npm install --save-dev prettier eslint-plugin-prettier eslint-config-prettier
+
+[.eslintrc.json]
+{
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true,
+    "jest": true
+  },
+  "extends": [
+    "plugin:react/recommended",
+    "standard",
+    "plugin:@typescript-eslint/recommended",
+    "prettier/@typescript-eslint",
+    "prettier/standard",
+    "prettier/react"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "plugins": [
+    "react",
+    "@typescript-eslint",
+    "prettier"
+  ],
+  "rules": {
+    "prettier/prettier": "error",
+    "space-before-function-paren": "off",
+    "react/prop-types": "off"
+  }
+}
+
+[prettier.config.js]
+module.exports = {
+  semi: false,
+  singleQuote: true,
+  arrowParens: 'avoid',
+  trailingComma: 'none',
+  endOfLine: 'auto'
+};
+
+npm install @stitches/react
+
+[stitches.config.ts]
+
+[/pages/_document.tsx]
+import React from 'react';
+import NextDocument, { Html, Head, Main, NextScript } from 'next/document';
+import { getCssText } from '../stitches.config';
+
+export default class Document extends NextDocument {
+  render() {
+    return (
+      <Html lang="en">
+        <Head>
+          <style id="stitches" dangerouslySetInnerHTML={{ __html: getCssText() }} />
+        </Head>
+        <body>
+          <Main />
+          <NextScript />
+        </body>
+      </Html>
+    );
+  }
+}
+
+npm install next-themes
+
+npm install --save next-images
+
+[next.config.js]
+const withImages = require('next-images')
+module.exports = {
+  reactStrictMode: true,
+}
+module.exports = withImages({
+  esModule: true,
+  inlineImageLimit: false // A codificação de URL base4/data (SVG) não é suportada ao usar o componente para otimização
+})
+
+[additional.d.ts]
+/// <reference types="next-images" />
+
+[tsconfig.json]
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "incremental": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve"
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "additional.d.ts" //Cofiguração adicionais next-images
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
+
